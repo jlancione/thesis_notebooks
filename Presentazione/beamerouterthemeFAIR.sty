@@ -1,0 +1,112 @@
+\mode<presentation>
+
+\setbeamertemplate{background}{
+    \begin{tikzpicture}
+        \useasboundingbox (0,0) rectangle(\the\paperwidth,\the\paperheight);
+%       \ifnum\thepage=1\relax % show title image only on page 1
+%         \node[opacity=0.8] at ($(current page.center) + (0,.2)$){\includegraphics[width=\linewidth, angle=180]{cms_collision.png}}; % SIS100 image
+%          %\put(18,35){\includegraphics[width=\linewidth]{cms_collision.png}} % SIS100 image
+%       \fi
+    \end{tikzpicture}
+}
+
+% Title page
+\defbeamertemplate*{title page}{FAIR}{
+  \vspace*{\fill}
+    \begin{beamercolorbox}[wd=\linewidth]{title page header}
+        \centering
+        \usebeamerfont{title}\inserttitle\par
+        \usebeamerfont{subtitle}\insertsubtitle
+    \end{beamercolorbox}
+  \vspace*{\fill}
+		\begin{tikzpicture}[remember picture,overlay]
+			\useasboundingbox (0,0) rectangle(\the\paperwidth,\the\paperheight);
+			\fill[color=red!85] (-2.7,-3.1) rectangle (\the\paperwidth,-0.3); % red rectangle
+      \node[text width=\textwidth] at ($(current page.center) + (0,-3.55)$){
+      \parbox{.4\textwidth}{
+        \small{Candidato:} \\
+        \usebeamerfont{author}
+        \insertauthor 
+        }%
+        \hfill
+      \parbox{.6\textwidth}{
+        \small{Relatore:} \\
+        Prof. 
+        \usebeamerfont{author}
+        Emanuele Roberto Nocera
+        }
+      };
+		\end{tikzpicture}
+}
+%% Frame title
+%\defbeamertemplate*{frametitle}{FAIR}{
+%%    \begin{beamercolorbox}[wd=\linewidth,ht=0cm]{frametitle} %\paperheight
+%    \begin{beamercolorbox}[wd=10cm,ht=0cm]{frametitle} %\paperheight
+%        \begin{tikzpicture}
+%%            \useasboundingbox (0,0) rectangle(\the\paperwidth,\the\paperheight);
+%            \useasboundingbox (0,0) rectangle(10cm,\the\paperheight);
+%            \ifx\insertframesubtitle\@empty
+%                {
+%                    \node[anchor=west,black,font=\large\bfseries] at (0.05,0.95){\insertframetitle};
+%                }
+%            \else
+%                {
+%                    \node[anchor=west,black,font=\large\bfseries] at (0.05,1.35){\insertframetitle};
+%                    \node[anchor=west,black,font=\small\bfseries] at (0.05,0.95){\insertframesubtitle};
+%                }
+%            \fi
+%        \end{tikzpicture}
+%    \end{beamercolorbox}
+%    \vspace{-1.5em}
+%}
+
+%Frame title
+\setbeamertemplate{frametitle}{%
+	\vskip-35pt \large%30pt
+	\begin{minipage}[b][23pt]{80.5mm}%
+		\ifx\insertframesubtitle\@empty
+			{\flushleft\insertframetitle}%
+		\else
+			{\flushleft\insertframetitle\newline\normalsize\insertframesubtitle}%
+		\fi
+	\end{minipage}%
+}
+
+% Footer
+\defbeamertemplate*{headline}{FAIR}{
+    \vspace{5.3em}
+    \begin{tikzpicture}
+        \fill[color=faircolor] (0,\the\paperheight-47) rectangle (0.37,\the\paperheight-37); % orange dot north
+        \fill[color=fairgrayA] (0.37,\the\paperheight-47) rectangle (\the\paperwidth,\the\paperheight-37); % gray bar north
+       % \fill[color=fairgrayB] (0,\the\paperheight-48) rectangle (0.37,\the\paperheight-47); % orange dot north  KS
+       % \fill[color=fairgrayC] (0.37,\the\paperheight-48) rectangle (\the\paperwidth,\the\paperheight-47); % gray bar north  KS
+
+        \draw[fill=faircolor, draw=none] (0.37,\the\paperheight-37) arc(90:-90:.175) -- (0.37,\the\paperheight-37); 
+        \put(280,238.5){\includegraphics[width=0.20\linewidth]{logo_unito_horizontal.png}} % UniTo logo  KS
+%       \put(261,231){\includegraphics[width=0.09\linewidth]{FAIR_Logo}} % FAIR logo  KS
+    \end{tikzpicture}
+}
+
+% Footer
+\defbeamertemplate*{footline}{FAIR}{
+	\ifnum \insertpagenumber = 1 
+		\begin{tikzpicture}[remember picture,overlay]
+			\useasboundingbox (0,0) rectangle(\the\paperwidth,\the\paperheight);
+			\fill[color=faircolor] (0,-0.1) rectangle (0.37,0.27); % orange dot south
+			\fill[color=fairgrayA] (0.37,-0.10) rectangle (\the\paperwidth,0.27); % gray bar south
+      \draw[fill=faircolor, draw=none] (0.37,0.27) arc(90:-90:.184) -- (0.37,0.27); 
+		\end{tikzpicture}
+		\qquad ~ \vspace*{1mm}%    \qquad {\fontsize{7}{10}\selectfont \usebeamerfont{date}\insertdate\ | FAIR~GmbH | GSI~GmbH | \usebeamerfont{author}\insertauthor\ | \insertframenumber}  KS
+	\else
+%		\vspace{-1mm}
+		\begin{tikzpicture}[remember picture,overlay]
+			\useasboundingbox (0,0) rectangle(\the\paperwidth,\the\paperheight);
+			\fill[color=faircolor] (0,-0.1) rectangle (0.37,0.27); % orange dot south
+			\fill[color=fairgrayA] (0.37,-0.10) rectangle (\the\paperwidth,0.27); % gray bar south
+      \draw[fill=faircolor, draw=none] (0.37,0.27) arc(90:-90:.184) -- (0.37,0.27); 
+		\end{tikzpicture}
+		\qquad\quad {\fontsize{7}{10}\selectfont Dipartimento di Fisica \hfill\insertauthor\ \hfill\insertdate\ \hfill \insertframenumber/\inserttotalframenumber } \vspace*{1mm}
+	\fi 
+}
+
+\mode<all>
