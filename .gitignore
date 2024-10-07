@@ -1,3 +1,14 @@
 .ipynb_checkpoints/
+# ignore system files
 .DS_Store
 
+# ignore tex auxiliary files
+*.aux
+*.log
+*.gz
+*.out
+*.toc
+*.fdb_latexmk
+*.fls
+*.nav
+*.snm
