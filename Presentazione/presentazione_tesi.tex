@@ -28,61 +28,176 @@
 \end{frame}
 
 
-\section{LHC}
+\section{Introduzione}
+\subsection{LHC}
 \begin{frame}{Large Hadron Collider}
-    This is a Text
+  L'anello di accelerazione + grande del cern (foto del logo), parliamo del CMS da cui arrivano i miei dati, in cui si producono particelle in abbondanza,
+
+  (foto del cern e dl cms)
+
+  Del CMS mi interessa giusto introdurre il fatto che ci siano dei calorimetri perché alcuni loro parametri sono tra le feature
+
+  Si produce un enorme mole di dati e per trattarli si utilizzano anche tecniche di machine learning (e così passo alla prox slide)
+
+  E posso accennare molto rapidamente al Nobel di quest'anno
 \end{frame}
 
-\section{Machine Learning}
+\subsection{Machine Learning}
 \begin{frame}{Machine Learning}
-  \begin{columns}
+  In questa slide devo far passare il concetto di labeled e unlabeled data (posso anche metterle come item) e la separazione del dataset in train test e validation (per il caso supervised)
+  \begin{columns}[T]
     \column{.4\linewidth}
-%   \vspace*{3ex}
-    \begin{block}{}
-      \centering
-      \textbf{
-      Unsupervised\\[.5ex]
-      Learning}
-    \end{block}
-    \vspace*{2ex}
-    \begin{itemize}
-      \item Clustering
-      \item Dimensional reduction
-    \end{itemize}
-
+%   \begin{minipage}{\textwidth}
+      \vspace*{3ex}
+      \begin{block}{}
+        \centering
+        \textbf{
+        Unsupervised\\[.5ex]
+        Learning}
+      \end{block}
+      \vspace*{1ex}
+%     {\centering Unlabeled data}
+      \vspace*{1ex}
+      \begin{itemize}
+        \item Clustering
+        \item Riduzione dimensionale
+      \end{itemize}
+%   \end{minipage}
+%
     \column{.4\linewidth}
-    \begin{block}{}
-      \centering
-      \textbf{
-      Supervised\\[.5ex]
-      Learning}
-    \end{block}
-    \vspace*{2ex}
-    \begin{itemize}
-      \item Classification
-      \item other
-    \end{itemize}
+%   \begin{minipage}{\textwidth}
+      \vspace*{3ex}
+      \begin{block}{}
+        \centering
+        \textbf{
+        Supervised\\[.5ex]
+        Learning}
+      \end{block}
+      \vspace*{1ex}
+%     {\centering Labeled data}
+      \vspace*{1ex}
+      \begin{itemize}
+        \only<1>{
+        \item Classificazione
+        }
+        \only<2>{
+        \item {\color{faircolor}CLASSIFICAZIONE}
+        }
+        \item Riconoscimento di immagini e testo
+      \end{itemize}
+%   \end{minipage}
   \end{columns}
+  \vspace{3ex}
+  Qua dicendo che il mio progetto ruota attorno ad un problema di classificazione passo alla prox slide
+\end{frame}
+
+\begin{frame}{Il Progetto di tesi}
+% \vspace{-8ex}
+% \begin{center}
+%   \color{faircolor}\Large\bfseries Il Progetto di tesi
+% \end{center}
+% \vspace{5ex}
+  Che sia chiaro dove si colloca il mio progetto:
+  affrontare un problema di classificazione binaria (logistic regression), nell'ambito della Fisica delle alte energie
+
+  Immagine classica del modello std e 1 di 1 rete neurale giusto per dire rapidamente il Cosa e il Come
+
+  il mio obiettivo: allenare 1 rete che distingua al meglio tra i 2 canali di decadimento
 
 \end{frame}
 
-\subsection{Reti Neurali}
-\begin{frame}{Reti Neurali}
-  neuroni/nodi
+\section{Dataset}
+\begin{frame}
+  \centering
+  \Huge\bfseries
+  Il Dataset
+\end{frame}
 
-  layer
+\subsection{Decadimenti dei bosoni}
+\begin{frame}{Decadimenti di $Z$ e $W$}
+  Diciamo subito qlche dettaglio in $+$ sul dataset (e magari mettiamolo anche a fondo slide, il riferimento a dove ho scaricato i dati)
 
-  pesi e bias
+  qua posso mettere i diagrammi di Feynman dei decadimenti, giusto per mettere qualcosa sotto gli occhi al pubblico
 
-  attivazione che introduce la nn linearità 
+  Elencare le features ie la cinematica di interesse e anche le variabili lasciate da parte in riferimento al rivelatore
 
+% Ql è in breve la fisica del processo
+\end{frame}
+
+\subsection{Preprocessing}
+\begin{frame}{Preprocessing}
+  Racconto di come ho trattato i dati: la storia del chi2 (vogliamo dirla? nn ne conosco i dettagli purtroppo), la qstione dgli outlier
+
+  Qua mostriamo sicuramente i pairplot che sono la cosa più indicativa, magari anche i boxplot? -> in questa maniera escono $+$ slides (e qua posso sprecarmi con il logaritmo e lo questione del'approccio scartato con le sigma)
+  
+  Raccontiamo la storia di correlazioni evidenti che permetterebbero una facile classificazione, nel caso $+$ semplice attraverso 1 appl lineare
+
+  I concetti da far passare sono 2: è meglio è avere 1 dataset uniforme, quindi scaliamo tutto e ci sbarazziamo degli outlier, evitare di introdurre ridondanze (ie guardare in faccia i dati con pairplot)
+\end{frame}
+
+\section{Reti Neurali}
+\subsection{Architettura e principi}
+\begin{frame}
+  \centering
+  \Huge\bfseries
+  Reti Neurali
+\end{frame}
+
+\begin{frame}{L'architettura}
+  % sicuramente la platea apprezza la concisione ie qnte info riesco a far passare nel minor tempo a patto di 1 buona qltà dl'info
+  Qua bisogna introdurre i parametri su cui ho agito: numero di layer, nodi, attivazione, algoritmo di ottimizzazione (questo nella slide successiva)
+
+  E devo spiegare come funziona la questione dei parametri (pesi e bias) e dove si introduce la non linearità (attivazione)
+
+  Questa slide la organizzerei come un elenco .ntato a sx e una bella immagine con cui io riesca a spiegare tutto 
+\end{frame}
+
+\begin{frame}{Loss function \\Algoritmi di ottimizzazione}
+  % Qsto per spiegare come funzioni la rete, nn per mostrare risultati ancora
+  L'idea di 1 loss function da minimizzare (come se fosse un'energia), qsta nn è semplice da spiegare visivamente, di questa metterei proprio la formula così la commento un attimo
+
+  Algoritmo (sarebbe carino accennare al learning rate e al momento e all'adattività degli algoritmi)
+
+
+  Immagini di allenamenti significativi, magari anche in cui si veda l'overfitting
+
+\end{frame}
+
+\subsection{Risultati dell'allenamento}
+\begin{frame}{Risultati}
+  E qua ci va una carrellata di rock curves che può tranquillamente occupare $+$ slides, quali voglio scegliere come significative? Con algoritmi diversi e mostrando bene il test point
 
 \end{frame}
 
 
 
 \begin{frame}{Conclusioni}
-  qua ci metteremo i risultati
+  \begin{itemize}
+    \item Le reti neurali si prestano molto bene a compiti di particle identification
+    \item Sono degli strumenti molto flessibili e quindi il mio progetto è facilmente generalizzabile ad altre necessità/misure
+    \item Ho identificato una classe di modelli equivalenti
+  \end{itemize}
+  \vspace{2ex}
+
+  studi futuri: provare a combinare i dataset e allenare una rete su quelli per distinguere i bosoni uno dall'altro
+
+    \vspace*{4ex}
+    \begin{columns}
+      \column{.4\linewidth}
+      {
+        \only<1>{\setbeamercolor{block body}{bg=white, fg=white}}
+        \begin{block}{}
+          \centering\vspace*{1ex}
+          \only<1>{}
+          \only<2>{
+            \Large\bfseries
+            \color{white}
+            Grazie a tutti!%
+          }%
+        \vspace*{1ex}
+      \end{block}
+      }
+    \end{columns}
 \end{frame}
 
 \end{document}
