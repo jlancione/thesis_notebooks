@@ -5,8 +5,29 @@
 
 
 \setbeamertemplate{items}[circle]
-\setbeamertemplate{sections/subsections in toc}[circle]
-%\setbeamertemplate{subsections in toc}[circle]
-%\setbeamertemplate{subsections in toc}[circle]
+%\setbeamertemplate{sections/subsections in toc}[circle]
+%\setbeamertemplate{subsections in toc}[square]
+
+\setbeamertemplate{section in toc}
+{\leavevmode\leftskip=4ex%
+  \llap{%
+    \begin{pgfpicture}{-1ex}{0ex}{1ex}{2ex}
+      \color{faircolor}
+      \pgfpathcircle{\pgfpoint{0pt}{.75ex}}{0.7ex}
+      \pgfusepath{fill}
+    \end{pgfpicture}\kern1.25ex%
+  }%
+  \inserttocsection\par}
+
+\setbeamertemplate{subsection in toc}
+  {\vspace*{.2ex}\leavevmode\leftskip=6ex%
+    \llap{%
+      \begin{pgfpicture}{-1ex}{0ex}{1ex}{2ex}
+        \color{fairgrayA}
+        \pgfpathcircle{\pgfpoint{0pt}{.75ex}}{0.4ex}
+        \pgfusepath{fill}
+      \end{pgfpicture}\kern1.20ex%
+     }%
+   \inserttocsubsection\par}
 
 \mode<all>
