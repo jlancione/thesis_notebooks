@@ -32,22 +32,33 @@
 \section{Introduzione}
 \subsection{LHC}
 \begin{frame}{Large Hadron Collider - CMS}
-  \includegraphics[width=.1\linewidth]{./cern_logo.pdf}
-  \includegraphics[width=.1\linewidth]{./cms_logo.pdf}
-  \includegraphics[width=.4\linewidth]{./cms_cutaway.pdf}
+  \begin{figure}
+    \centering
+    \begin{tikzpicture}
+      \node [inner sep=0pt, minimum width=.5cm, minimum height=.5cm] (cern) at ($(-\the\paperwidth/2,-\the\paperheight/2) + (-3.2,-.3)$) {
+        \includegraphics[width=.1\linewidth]{./cern_logo.pdf}
+      };
+      \node [inner sep=0pt, minimum width=.5cm, minimum height=.5cm] (cms_logo) at ($(cern) + (1.5,0)$){
+        \includegraphics[width=.1\linewidth]{./cms_logo.pdf}
+      };
+      \node [inner sep=0pt, text width=9cm, minimum height=6cm] (cms) at (-1.64,-2.5) {
+        \includegraphics[width=\textwidth]{./cms_cutaway.pdf}
+      };
+      \node [inner sep=0pt, text width=4cm] (text) at ($(cern) + (1.5,\the\paperheight/2)$) {Dummy text};
+    \end{tikzpicture}
   % https://cds.cern.ch/record/2665537
-
-  {\scriptsize
-  L'anello di accelerazione + grande del mondo, parliamo del CMS da cui arrivano i miei dati, in cui si producono particelle in abbondanza,
-
-  (foto del cern e dl cms)
-
-  Del CMS mi interessa giusto introdurre il fatto che ci siano dei calorimetri perché alcuni loro parametri sono tra le features (differenze tra i calorimetri)
-
-  Si produce un enorme mole di dati e per trattarli si utilizzano anche tecniche di machine learning (e così passo alla prox slide)
-
-  E posso accennare molto rapidamente al Nobel di quest'anno (fallo!!)
-  }
+  \end{figure}
+% {\scriptsize
+% L'anello di accelerazione + grande del mondo, parliamo del CMS da cui arrivano i miei dati, in cui si producono particelle in abbondanza,
+%
+% (foto del cern e dl cms)
+%
+% Del CMS mi interessa giusto introdurre il fatto che ci siano dei calorimetri perché alcuni loro parametri sono tra le features (differenze tra i calorimetri)
+%
+% Si produce un enorme mole di dati e per trattarli si utilizzano anche tecniche di machine learning (e così passo alla prox slide)
+%
+% E posso accennare molto rapidamente al Nobel di quest'anno (fallo!!)
+% }
 \end{frame}
 
 \subsection{Machine Learning}
@@ -182,7 +193,6 @@
   Elencare le features ie la cinematica di interesse e anche le variabili lasciate da parte in riferimento al rivelatore
 
 % Ql è in breve la fisica del processo
-  \vfill
   \begin{flushright}
     \scriptsize
     https://opendata.cern.ch/record/545
@@ -212,22 +222,42 @@
 \end{frame}
 
 \begin{frame}{L'architettura}
+  \begin{figure}
+    \includegraphics[width=\linewidth]{./fcn-architecture-simple.pdf}
+  \end{figure}
+
   % sicuramente la platea apprezza la concisione ie qnte info riesco a far passare nel minor tempo a patto di 1 buona qltà dl'info
-  Qua bisogna introdurre i parametri su cui ho agito: numero di layer, nodi, attivazione, algoritmo di ottimizzazione (questo nella slide successiva)
-
-  E devo spiegare come funziona la questione dei parametri (pesi e bias) e dove si introduce la non linearità (attivazione)
-
-  Questa slide la organizzerei come un elenco .ntato a sx e una bella immagine con cui io riesca a spiegare tutto 
+% Qua bisogna introdurre i parametri su cui ho agito: numero di layer, nodi, attivazione, algoritmo di ottimizzazione (questo nella slide successiva)
+%
+% E devo spiegare come funziona la questione dei parametri (pesi e bias) e dove si introduce la non linearità (attivazione)
+%
+% Questa slide la organizzerei come un elenco .ntato a sx e una bella immagine con cui io riesca a spiegare tutto 
 \end{frame}
 
 \begin{frame}{Loss function \\Algoritmi di ottimizzazione}
+% \begin{equation*}
+%   H(p,q) = - \sum p(x) \log q(x)
+% \end{equation*}
+  \begin{figure}
+    \centering
+    \begin{tikzpicture}
+      \node [inner sep=0pt, text width=8cm, minimum height=5cm] (landscape) at (0,0) {
+        \includegraphics[width=\textwidth]{./loss_landscape.pdf}
+      };
+      \node [inner sep=0pt, text width=5cm] (loss) at ($(landscape) + (-3,2)$) {
+        \begin{equation*}
+          H(p,q) = - \sum p(x) \log q(x)
+        \end{equation*}
+      };
+    \end{tikzpicture}
+  \end{figure}
   % Qsto per spiegare come funzioni la rete, nn per mostrare risultati ancora
-  L'idea di 1 loss function da minimizzare (come se fosse un'energia), qsta nn è semplice da spiegare visivamente, di questa metterei proprio la formula così la commento un attimo
-
-  Algoritmo (sarebbe carino accennare al learning rate e al momento e all'adattività degli algoritmi)
-
-
-  Immagini di allenamenti significativi, magari anche in cui si veda l'overfitting
+% L'idea di 1 loss function da minimizzare (come se fosse un'energia), qsta nn è semplice da spiegare visivamente, di questa metterei proprio la formula così la commento un attimo
+%
+% Algoritmo (sarebbe carino accennare al learning rate e al momento e all'adattività degli algoritmi)
+%
+%
+% Immagini di allenamenti significativi, magari anche in cui si veda l'overfitting
 
 \end{frame}
 
@@ -260,7 +290,7 @@
           \only<2>{
             \Large\bfseries
             \color{white}
-            Grazie a tutti!%
+            Grazie%
           }%
         \vspace*{1ex}
       \end{block}
