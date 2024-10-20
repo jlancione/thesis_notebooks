@@ -11,7 +11,7 @@
 }
 
 % Title page
-\defbeamertemplate*{title page}{FAIR}{
+\defbeamertemplate*{title page}{UNITO}{
   \vspace*{\fill}
     \begin{beamercolorbox}[wd=\linewidth]{title page header}
         \centering
@@ -22,7 +22,7 @@
   \vspace*{\fill}
 		\begin{tikzpicture}[remember picture,overlay]
 			\useasboundingbox (0,0) rectangle(\the\paperwidth,\the\paperheight);
-			\fill[color=faircolor!] (-2.7,-3.1) rectangle (\the\paperwidth,-0.1); % red rectangle
+			\fill[color=unitocolor] (-2.7,-3.1) rectangle (\the\paperwidth,-0.1); % red rectangle
       \node[text width=\textwidth] at ($(current page.center) + (0,-3.85)$){
       \parbox{.4\textwidth}{\color{white}
         \small{Candidato:} \\
@@ -33,14 +33,13 @@
       \parbox{.6\textwidth}{\color{white}
         \small{Relatore:} \\
         Prof. 
-        \usebeamerfont{author}
-        Emanuele Roberto Nocera
+        \usebeamerfont{author}Emanuele Roberto Nocera
         }
       };
 		\end{tikzpicture}
 }
 %% Frame title
-%\defbeamertemplate*{frametitle}{FAIR}{
+%\defbeamertemplate*{frametitle}{UNITO}{
 %%    \begin{beamercolorbox}[wd=\linewidth,ht=0cm]{frametitle} %\paperheight
 %    \begin{beamercolorbox}[wd=10cm,ht=0cm]{frametitle} %\paperheight
 %        \begin{tikzpicture}
@@ -73,40 +72,39 @@
 	\end{minipage}%
 }
 
-% Footer
-\defbeamertemplate*{headline}{FAIR}{
-    \vspace{7.3em}
-    \begin{tikzpicture}
-        \fill[color=faircolor] (0,\the\paperheight-55) rectangle (0.37,\the\paperheight-54); % orange dot north
-        \shade[left color=fairgrayA!30, right color=white] (0.37,\the\paperheight-55) rectangle (\the\paperwidth,\the\paperheight-54); % gray bar north
-       % \fill[color=fairgrayB] (0,\the\paperheight-48) rectangle (0.37,\the\paperheight-47); % orange dot north  KS
-       % \fill[color=fairgrayC] (0.37,\the\paperheight-48) rectangle (\the\paperwidth,\the\paperheight-47); % gray bar north  KS
-
-%       \draw[fill=faircolor, draw=none] (0.37,\the\paperheight-37) arc(90:-90:.175) -- (0.37,\the\paperheight-37); 
-        \put(258,221.5){\includegraphics[width=0.28\linewidth]{logo_unito-horizontal.pdf}} % UniTo logo  KS
-%       \put(261,231){\includegraphics[width=0.09\linewidth]{FAIR_Logo}} % FAIR logo  KS
-    \end{tikzpicture}
+% Header
+\defbeamertemplate*{headline}{UNITO}{
+    \ifnum \insertpagenumber = 1
+      \vspace{7.3em}
+      \begin{tikzpicture}
+        \shade[left color=unitograyA!30, right color=white] (0,\the\paperheight-55) rectangle (\the\paperwidth,\the\paperheight-54); % gray bar north (background for progress bar)
+        \put(258,221.5){\includegraphics[width=0.28\linewidth]{logo_unito-horizontal.pdf}} % UniTo logo
+      \end{tikzpicture}
+    \else
+      \vspace{7.3em}
+      \begin{tikzpicture}
+        \shade[left color=unitocolor, right color=unitograyA!30] (0,\the\paperheight-55) rectangle ($(\the\paperwidth/\inserttotalframenumber*\insertframenumber,\the\paperheight-54)$); % progress bar north (red)
+        \shade[left color=unitograyA!30, right color=white] ($(\the\paperwidth/\inserttotalframenumber*\insertframenumber,\the\paperheight-55)$) rectangle (\the\paperwidth,\the\paperheight-54); % gray bar north (background for progress bar)
+%     \fill[color=unitocolor] (0,\the\paperheight-55) rectangle (0.37,\the\paperheight-54)$); % red segment north
+%       \shade[left color=unitograyA!30, right color=white] (0.37,\the\paperheight-55)) rectangle (\the\paperwidth,\the\paperheight-54); % gray bar north
+        \put(258,221.5){\includegraphics[width=0.28\linewidth]{logo_unito-horizontal.pdf}} % UniTo logo
+      \end{tikzpicture}
+    \fi
 }
 
 % Footer
-\defbeamertemplate*{footline}{FAIR}{
+\defbeamertemplate*{footline}{UNITO}{
 	\ifnum \insertpagenumber = 1 
- % 	\begin{tikzpicture}[remember picture,overlay]
- % 		\useasboundingbox (0,0) rectangle(\the\paperwidth,\the\paperheight);
- % 		\fill[color=faircolor] (0,-0.1) rectangle (0.37,0.27); % orange dot south
- % 		\fill[color=fairgrayA] (0.37,-0.10) rectangle (\the\paperwidth,0.27); % gray bar south
- %     \draw[fill=faircolor, draw=none] (0.36,0.27) arc(90:-90:.184) -- (0.36,0.27); 
- % 	\end{tikzpicture}
- % 	\qquad ~ \vspace*{1mm}%    \qquad {\fontsize{7}{10}\selectfont \usebeamerfont{date}\insertdate\ | FAIR~GmbH | GSI~GmbH | \usebeamerfont{author}\insertauthor\ | \insertframenumber}  KS
 	\else
 %		\vspace{-1mm}
 		\begin{tikzpicture}[remember picture,overlay]
 			\useasboundingbox (0,0) rectangle(\the\paperwidth,\the\paperheight);
-			\fill[color=faircolor] (0,0.4) rectangle (0.37,0.44); % orange dot south
-      \shade[left color=fairgrayA!30, right color=white] (0.37,0.4) rectangle (\the\paperwidth,0.44); % gray bar south
-%     \fill[color=faircolor] (0.37,0.27) arc(90:-90:.184) -- (0.37,0.27); 
+      \shade[left color=unitocolor, right color=unitograyA!30] (0,0.4) rectangle ($(\the\paperwidth/\inserttotalframenumber*\insertframenumber,0.44)$); % progress bar south (red)
+      \shade[left color=unitograyA!30, right color=white] ($(\the\paperwidth/\inserttotalframenumber*\insertframenumber,0.4)$) rectangle (\the\paperwidth,0.44); % gray bar south
+%		\fill[color=unitocolor] (0,0.4) rectangle (0.37,0.44); % orange dot south
+%     \shade[left color=unitograyA!30, right color=white] (0.37,0.4) rectangle (\the\paperwidth,0.44); % gray bar south
 		\end{tikzpicture}
-		\qquad\quad {\fontsize{7}{10}\selectfont Dipartimento di Fisica \hfill\insertauthor\ \hfill\insertdate\ \hfill \insertframenumber/\inserttotalframenumber\quad } \vspace*{2.5mm}
+		\qquad\quad {\fontsize{7}{10}\selectfont Dipartimento di Fisica \hfill\insertauthor\ \hfill\insertdate\ \hfill \insertframenumber\qquad } \vspace*{2.5mm}
 	\fi 
 }
 

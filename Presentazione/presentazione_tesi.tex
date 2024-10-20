@@ -8,13 +8,14 @@
 \renewcommand*\familydefault{\sfdefault} %% Only if the base font of the document is to be sans serif
 
 \usepackage[T1]{fontenc}
+\usepackage{classico}
 
 \title{Classificazione dei bosoni elettrodeboli con una rete neurale al Large Hadron Collider} 
-\subtitle{7 Novembre 2024}
-\date{November 7, 2024}
+\subtitle{6 Novembre 2024}
+\date{6 Novembre 2024}
 \author{Jacopo Lancione}
 
-\usetheme{FAIR}
+\usetheme{UNITO}
     %\setbeamercovered{invisible} %default
     \setbeamercovered{transparent} % Items to be uncovered already visible, but almost transparent
     
@@ -30,80 +31,139 @@
 
 \section{Introduzione}
 \subsection{LHC}
-\begin{frame}{Large Hadron Collider}
-  L'anello di accelerazione + grande del cern (foto del logo), parliamo del CMS da cui arrivano i miei dati, in cui si producono particelle in abbondanza,
+\begin{frame}{Large Hadron Collider - CMS}
+  \includegraphics[width=.1\linewidth]{./cern_logo.pdf}
+  \includegraphics[width=.1\linewidth]{./cms_logo.pdf}
+  \includegraphics[width=.4\linewidth]{./cms_cutaway.pdf}
+  % https://cds.cern.ch/record/2665537
+
+  {\scriptsize
+  L'anello di accelerazione + grande del mondo, parliamo del CMS da cui arrivano i miei dati, in cui si producono particelle in abbondanza,
 
   (foto del cern e dl cms)
 
-  Del CMS mi interessa giusto introdurre il fatto che ci siano dei calorimetri perché alcuni loro parametri sono tra le feature
+  Del CMS mi interessa giusto introdurre il fatto che ci siano dei calorimetri perché alcuni loro parametri sono tra le features (differenze tra i calorimetri)
 
   Si produce un enorme mole di dati e per trattarli si utilizzano anche tecniche di machine learning (e così passo alla prox slide)
 
-  E posso accennare molto rapidamente al Nobel di quest'anno
+  E posso accennare molto rapidamente al Nobel di quest'anno (fallo!!)
+  }
 \end{frame}
 
 \subsection{Machine Learning}
-\begin{frame}{Machine Learning}
-  In questa slide devo far passare il concetto di labeled e unlabeled data (posso anche metterle come item) e la separazione del dataset in train test e validation (per il caso supervised)
-  \begin{columns}[T]
-    \column{.4\linewidth}
-%   \begin{minipage}{\textwidth}
-      \vspace*{3ex}
-      \begin{block}{}
-        \centering
-        \textbf{
-        Unsupervised\\[.5ex]
-        Learning}
-      \end{block}
-      \vspace*{1ex}
-%     {\centering Unlabeled data}
-      \vspace*{1ex}
-      \begin{itemize}
-        \item Clustering
-        \item Riduzione dimensionale
-      \end{itemize}
-%   \end{minipage}
+\begin{frame}
+  \vspace*{-3ex}
+  \begin{figure}
+    \centering
+    \resizebox{\linewidth}{!}{
+      \begin{tikzpicture}[mindmap, outer sep=0pt,
+        level 1 concept/.append style={level distance=148},
+        level 2 concept/.append style={level distance=120},
+        text=white,
+        decoration={start radius=1cm, end radius=.5cm,amplitude=2mm,angle=30}]%,
+
+        \only<-2>{
+          \node [circle, minimum width=3.2cm, fill=unitocolor] (ml) at (0,0) {\huge\color{white}Machine\\[.5ex] Learning}
+            child [grow=-10]
+              {node [circle, minimum width=3.3cm, fill=unitograyA!60] (unsup) {\Large \!\!\!\!\!\!Unsupervised Learning}
+                child [grow=-40]{ node[circle, minimum width=2.5cm, fill=unitocolor](clust)  {\normalsize Clustering}}
+                child [grow=-85]{ node[circle, minimum width=2.5cm, fill=unitocolor](reduct) {\normalsize Riduzione dimensionale}}
+              }
+            child [grow=190] 
+              {node [circle, minimum width=3.3cm, fill=unitograyA!60] (sup) {\Large Supervised Learning}
+                child [grow=220]{ node[circle, minimum width=2.5cm, fill=unitocolor](classif) {\normalsize Classifi\-cazione}}
+                child [grow=-95]{ node[circle, minimum width=2.5cm, fill=unitocolor](regr)    {\normalsize \!\!\!Regressione}}
+          };
+        }
+        \only<3>{
+          \node [circle, minimum width=3.2cm, fill=unitocolor] (ml) at (0,0) {\huge\color{white}Machine\\[.5ex] Learning}
+            child [grow=-10]
+              {node [circle, minimum width=3.3cm, fill=unitograyA!60] (unsup) {\Large \!\!\!\!\!\!Unsupervised Learning}
+                child [grow=-40]{ node[circle, minimum width=2.5cm, fill=unitocolor](clust)  {\normalsize Clustering}}
+                child [grow=-85]{ node[circle, minimum width=2.5cm, fill=unitocolor](reduct) {\normalsize Riduzione dimensionale}}
+              }
+            child [grow=190] 
+              {node [circle, minimum width=3.3cm, fill=unitograyA!60] (sup) {\Large Supervised Learning}
+                child [grow=220]{ node[circle, minimum width=2.5cm, fill=faircolor](classif) {\normalsize\color{black} Classifi\-cazione}}
+                child [grow=-95]{ node[circle, minimum width=2.5cm, fill=unitocolor](regr)    {\normalsize \!\!\!Regressione}}
+            };
+          }
+
+        \path (ml) to[circle connection bar switch color=from (unitocolor) to (unitograyA!60)] (unsup);
+        \path (ml) to[circle connection bar switch color=from (unitocolor) to (unitograyA!60)] (sup);
+        \path (unsup) to[circle connection bar switch color=from (unitograyA!60) to (unitocolor)] (clust);
+        \path (unsup) to[circle connection bar switch color=from (unitograyA!60) to (unitocolor)] (reduct);
+        \only<-2>{
+          \path (sup) to[circle connection bar switch color=from (unitograyA!60) to (unitocolor)] (classif);
+        }
+        \only<3>{
+          \path (sup) to[circle connection bar switch color=from (unitograyA!60) to (faircolor)] (classif);
+        }
+        \path (sup) to[circle connection bar switch color=from (unitograyA!60) to (unitocolor)] (regr);
+
+        \node [inner sep=0pt, text width=6.5cm, minimum height=4.5cm] (nobel) at ($(ml) - (0,5.5)$) {
+          \only<2->{
+            \includegraphics[width=\textwidth]{./nobel_prize.jpeg}
+          }
+        };
+      \end{tikzpicture}
+    }
+  \end{figure}
 %
-    \column{.4\linewidth}
-%   \begin{minipage}{\textwidth}
-      \vspace*{3ex}
-      \begin{block}{}
-        \centering
-        \textbf{
-        Supervised\\[.5ex]
-        Learning}
-      \end{block}
-      \vspace*{1ex}
-%     {\centering Labeled data}
-      \vspace*{1ex}
-      \begin{itemize}
-        \only<1>{
-        \item Classificazione
-        }
-        \only<2>{
-        \item {\color{faircolor}CLASSIFICAZIONE}
-        }
-        \item Riconoscimento di immagini e testo
-      \end{itemize}
-%   \end{minipage}
-  \end{columns}
-  \vspace{3ex}
-  Qua dicendo che il mio progetto ruota attorno ad un problema di classificazione passo alla prox slide
+% {\scriptsize
+%   In questa slide devo far passare il concetto di labeled e unlabeled data (posso anche metterle come item)
+% }
+
+% {\scriptsize
+%   Qua dicendo che il mio progetto ruota attorno ad un problema di classificazione passo alla prox slide
+% }
 \end{frame}
 
 \begin{frame}{Il Progetto di tesi}
-% \vspace{-8ex}
-% \begin{center}
-%   \color{faircolor}\Large\bfseries Il Progetto di tesi
-% \end{center}
-% \vspace{5ex}
-  Che sia chiaro dove si colloca il mio progetto:
-  affrontare un problema di classificazione binaria (logistic regression), nell'ambito della Fisica delle alte energie
+% {\scriptsize
+%   Che sia chiaro dove si colloca il mio progetto:
+%   affrontare un problema di classificazione binaria (logistic regression), nell'ambito della Fisica delle alte energie
+%
+%   Immagine classica del modello std e 1 di 1 rete neurale giusto per dire rapidamente il Cosa e il Come
+%
+%   il mio obiettivo: allenare 1 rete che distingua al meglio tra i 2 canali di decadimento
+% }
+  \vspace*{-3.5ex}
+  \begin{center}
+    \Large
+    Classificare
+  \end{center}
+  \vspace*{-1.5ex}
+  \begin{columns}[T]
+    \column{.40\linewidth}
+      \begin{block}{}
+        \centering%
+        Bosoni elettrodeboli
+      \end{block}
+      \begin{figure}
+        \centering
+        \includegraphics[width=\textwidth]{./sm_overview.pdf}
+      \end{figure}
 
-  Immagine classica del modello std e 1 di 1 rete neurale giusto per dire rapidamente il Cosa e il Come
-
-  il mio obiettivo: allenare 1 rete che distingua al meglio tra i 2 canali di decadimento
-
+    \column{.11\linewidth}
+      {
+        \setbeamercolor{block body}{bg=white, fg=black}
+        \begin{block}{}
+          \centering\small
+          con una
+        \end{block}
+      }
+    \column{.35\linewidth}
+      \begin{block}{}
+        \centering
+        Rete neurale
+      \end{block}
+      \parbox[t][][c]{\textwidth}{
+        \vspace*{3ex}
+        \centering
+        \includegraphics[width=.9\textwidth]{./nn_diagram.pdf}
+      }
+  \end{columns}
 \end{frame}
 
 \section{Dataset}
@@ -122,10 +182,17 @@
   Elencare le features ie la cinematica di interesse e anche le variabili lasciate da parte in riferimento al rivelatore
 
 % Ql è in breve la fisica del processo
+  \vfill
+  \begin{flushright}
+    \scriptsize
+    https://opendata.cern.ch/record/545
+  \end{flushright}
 \end{frame}
 
 \subsection{Preprocessing}
 \begin{frame}{Preprocessing}
+
+  {\scriptsize
   Racconto di come ho trattato i dati: la storia del chi2 (vogliamo dirla? nn ne conosco i dettagli purtroppo), la qstione dgli outlier
 
   Qua mostriamo sicuramente i pairplot che sono la cosa più indicativa, magari anche i boxplot? -> in questa maniera escono $+$ slides (e qua posso sprecarmi con il logaritmo e lo questione del'approccio scartato con le sigma)
@@ -133,6 +200,7 @@
   Raccontiamo la storia di correlazioni evidenti che permetterebbero una facile classificazione, nel caso $+$ semplice attraverso 1 appl lineare
 
   I concetti da far passare sono 2: è meglio è avere 1 dataset uniforme, quindi scaliamo tutto e ci sbarazziamo degli outlier, evitare di introdurre ridondanze (ie guardare in faccia i dati con pairplot)
+  }
 \end{frame}
 
 \section{Reti Neurali}
