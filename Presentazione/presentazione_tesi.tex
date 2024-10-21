@@ -45,23 +45,20 @@
       \node [inner sep=0pt, text width=9cm, minimum height=6cm] (cms) at (-1.64,-2.5) {
         \includegraphics[width=\textwidth]{./cms_cutaway.pdf}
       };
-      \node [inner sep=0pt, text width=4cm] (text) at ($(cern) + (1.5,\the\paperheight/2)$) {
-        Dummy text
+      \node [line width=.1cm, inner sep=0pt, text width=4cm] (text) at ($(cern) + (1.0,\the\paperheight/2)$) {
+        Il più grande acceleratore di particelle del mondo di cui il Compact Muon Solenoid (CMS) è uno dei quattro rivelatori principali. 
+
+      % {\scriptsize
+      %   Aggiungo dei dettagli $+$ tecnici sul rivelatore? perché in realtà non mi servono per i discrosi successivi
+      % }
       };
     \end{tikzpicture}
   % https://cds.cern.ch/record/2665537
   \end{figure}
-% {\scriptsize
 % L'anello di accelerazione + grande del mondo, parliamo del CMS da cui arrivano i miei dati, in cui si producono particelle in abbondanza,
-%
-% (foto del cern e dl cms)
-%
 % Del CMS mi interessa giusto introdurre il fatto che ci siano dei calorimetri perché alcuni loro parametri sono tra le features (differenze tra i calorimetri)
 %
 % Si produce un enorme mole di dati e per trattarli si utilizzano anche tecniche di machine learning (e così passo alla prox slide)
-%
-% E posso accennare molto rapidamente al Nobel di quest'anno (fallo!!)
-% }
 \end{frame}
 
 \subsection{Machine Learning}
@@ -185,12 +182,11 @@
   Il Dataset
 \end{frame}
 
-\subsection{Decadimenti dei bosoni}
-\begin{frame}{Decadimenti di $Z$ e $W$}
-  qua posso mettere i diagrammi di Feynman dei decadimenti, giusto per mettere qualcosa sotto gli occhi al pubblico
+\subsection{Produzione dei bosoni}
+\begin{frame}{$Z$ e $W$ all'LHC\\ Il processo Drell-Yan}
+  Riporto le masse
 
-  drell yann, corrente carica
-% Ql è in breve la fisica del processo
+  Diagrammi di Feynman dei decadimenti, anche uno con la produzione? ie drell yan
 \end{frame}
 
 \begin{frame}{La struttura del dataset}
@@ -214,7 +210,7 @@
           \item rapidità $\eta$
           \item angolo $\phi$
         \end{itemize}
-        \item Parametri del detector iso
+        \item Parametri del detector
       \end{itemize}
 
     \column{.52\linewidth}
@@ -222,6 +218,7 @@
       \begin{figure}
         \centering
         \includegraphics[width=\textwidth]{./cms_event.png}
+% https://cds.cern.ch/record/2909335?ln=en
       \end{figure}
 %     \vspace*{6ex}
 %
@@ -236,19 +233,31 @@
 
 \subsection{Preprocessing}
 \begin{frame}{Preprocessing}
+  Qua scriviamo la ricetta finale dl preprocessing
 
-  {\scriptsize
-  Qua voglio dire che ho guardato in faccia i dati (a che scopo? cercare correlazioni evidenti e sbarazzarmi di dati che potrebbero inquinare l'allenamento dla rete), ho rimosso gli outliers e poi li ho riscalati (e dicendo qsto mi collego alla slide successiva pké la ragione dl riscalamento è strettamente legata agli algoritmi)
+  \begin{figure}
+    \parbox{.47\linewidth}{
+      \centering
+      \includegraphics[width=\linewidth]{./Zpairplot.png}
+    }\,
+    \parbox{.47\linewidth}{
+      \centering
+      \includegraphics[width=\linewidth]{./pairplot_merged.png}
+    }
+  \end{figure}
 
-  Qua mostriamo sicuramente i pairplot (mi raccomando allora a inserirli riscalati!) che sono la cosa più indicativa   
-  Raccontiamo la storia di correlazioni evidenti che permetterebbero una facile classificazione, nel caso $+$ semplice attraverso 1 appl lineare
+  % {\scriptsize
+  % Qua voglio dire che ho guardato in faccia i dati (a che scopo? cercare correlazioni evidenti e sbarazzarmi di dati che potrebbero inquinare l'allenamento dla rete), ho rimosso gli outliers e poi li ho riscalati (e dicendo qsto mi collego alla slide successiva pké la ragione dl riscalamento è strettamente legata agli algoritmi)
 
-  I concetti da far passare sono 2: è meglio avere 1 dataset uniforme, quindi scaliamo tutto e ci sbarazziamo degli outlier, evitare di introdurre ridondanze (ie guardare in faccia i dati con pairplot)
-  }
+  % Qua mostriamo sicuramente i pairplot (mi raccomando allora a inserirli riscalati!) che sono la cosa più indicativa   
+  % Raccontiamo la storia di correlazioni evidenti che permetterebbero una facile classificazione, nel caso $+$ semplice attraverso 1 appl lineare
 
-  {\scriptsize
-  la qstione dgli outlier dettagliata in slide di backup con i boxplot -> in questa maniera escono $+$ slides (e qua posso sprecarmi con il logaritmo e lo questione del'approccio scartato con le sigma)
-  }
+  % I concetti da far passare sono 2: è meglio avere 1 dataset uniforme, quindi scaliamo tutto e ci sbarazziamo degli outlier, evitare di introdurre ridondanze (ie guardare in faccia i dati con pairplot)
+  % }
+
+  % {\scriptsize
+  % la qstione dgli outlier dettagliata in slide di backup con i boxplot -> in questa maniera escono $+$ slides (e qua posso sprecarmi con il logaritmo e lo questione del'approccio scartato con le sigma)
+  % }
 \end{frame}
 
 \begin{frame}{Suddivisione del dataset}
@@ -348,6 +357,7 @@
         \item RMS
         \item Adam
         \item Nadam
+        \item \dots
       \end{itemize}
   \end{columns}
 
@@ -360,17 +370,27 @@
 % Immagini di allenamenti significativi, magari anche in cui si veda l'overfitting
 \end{frame}
 
+\begin{frame}{Overfitting}
+  \begin{figure}
+    \includegraphics[width=\linewidth]{./Z64_64_Adam_relu.pdf}
+  \end{figure}
+\end{frame}
+
+
 \subsection{Risultati dell'allenamento}
 \begin{frame}{Risultati}
-  E qua ci va una carrellata di rock curves che può tranquillamente occupare $+$ slides, quali voglio scegliere come significative? Con algoritmi diversi e mostrando bene il test point
-
+  I modelli generalizzano sul test set
+  \begin{figure}
+    \only<1>{\includegraphics[width=\linewidth]{./Z28_28_adam_sigmoid.pdf}}
+    \only<2>{\includegraphics[width=\linewidth]{./W24_12_24_Adam_relu.pdf}}
+  \end{figure}
 \end{frame}
 
 
 \section{Conclusioni}
 \begin{frame}{Conclusioni}
   \begin{itemize}
-    \item Le reti neurali si prestano molto bene a compiti di identificazione di particelle
+    \item Le reti neurali si prestano molto bene all'identificazione di particelle
     \item L'allenamento è efficace perché \textbf{generalizza} al test set
     \item Ho identificato una classe di \textbf{modelli equivalenti}
   \end{itemize}
