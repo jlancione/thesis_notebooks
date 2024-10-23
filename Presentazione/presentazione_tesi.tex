@@ -10,6 +10,9 @@
 \usepackage[T1]{fontenc}
 \usepackage{classico}
 \usepackage{siunitx}
+\usepackage{pdfpages}
+\usepackage{bm}
+  \SetSymbolFont{largesymbols}{bold}{OMX}{txex}{b}{n} % for big bold parethesis
 
 \title{Classificazione dei bosoni elettrodeboli con una rete neurale al Large Hadron Collider} 
 \subtitle{6 Novembre 2024}
@@ -31,30 +34,49 @@
 
 
 \section{Introduzione}
+\begin{frame}
+  \centering
+  \Huge\bfseries
+  Introduzione
+\end{frame}
+
 \subsection{LHC}
 \begin{frame}{Large Hadron Collider - CMS}
-  \begin{figure}
-    \centering
-    \begin{tikzpicture}
-      \node [inner sep=0pt, minimum width=.5cm, minimum height=.5cm] (cern) at ($(-\the\paperwidth/2,-\the\paperheight/2) + (-3.2,-.3)$) {
-        \includegraphics[width=.1\linewidth]{./cern_logo.pdf}
-      };
-      \node [inner sep=0pt, minimum width=.5cm, minimum height=.5cm] (cms_logo) at ($(cern) + (1.5,0)$){
-        \includegraphics[width=.1\linewidth]{./cms_logo.pdf}
-      };
-      \node [inner sep=0pt, text width=9cm, minimum height=6cm] (cms) at (-1.64,-2.5) {
-        \includegraphics[width=\textwidth]{./cms_cutaway.pdf}
-      };
-      \node [line width=.1cm, inner sep=0pt, text width=4cm] (text) at ($(cern) + (1.0,\the\paperheight/2)$) {
-        Il più grande acceleratore di particelle del mondo di cui il Compact Muon Solenoid (CMS) è uno dei quattro rivelatori principali. 
-
-      % {\scriptsize
-      %   Aggiungo dei dettagli $+$ tecnici sul rivelatore? perché in realtà non mi servono per i discrosi successivi
-      % }
-      };
-    \end{tikzpicture}
-  % https://cds.cern.ch/record/2665537
-  \end{figure}
+% \begin{figure}
+%   \centering
+%   \begin{tikzpicture}
+%     \node [inner sep=0pt, minimum width=.5cm, minimum height=.5cm] (cern) at ($(-\the\paperwidth/2,-\the\paperheight/2) + (-3.2,-.3)$) {
+%       \includegraphics[width=.1\linewidth]{./cern_logo.pdf}
+%     };
+%     \node [inner sep=0pt, minimum width=.5cm, minimum height=.5cm] (cms_logo) at ($(cern) + (1.5,0)$){
+%       \includegraphics[width=.1\linewidth]{./cms_logo.pdf}
+%     };
+%     \node [draw, line width=.1cm, inner sep=0pt, text width=9cm, minimum height=6cm] (cms) at (-1.64,-2.5) {
+%       \includegraphics[width=\textwidth]{./cms_cutaway.pdf}
+%     };
+%     \node [draw, line width=.1cm, inner sep=0pt, text width=5cm] (text) at ($(cern) + (1.0,\the\paperheight/3)$) {
+%       Il più grande acceleratore di particelle del mondo di cui il Compact Muon Solenoid (CMS) è uno dei quattro rivelatori principali. 
+%     };
+%   \end{tikzpicture}
+  \begin{columns}
+    \column{.25\linewidth}
+      \begin{figure}
+        \centering
+        \includegraphics[width=.4\textwidth]{./cern_logo.pdf}\\
+        \vspace{1ex}
+        \includegraphics[width=.4\textwidth]{./cms_logo.pdf}
+      \end{figure}
+    \column{.70\linewidth}
+      \begin{figure}
+        \includepdf[width=\textwidth]{./cms_cutaway.pdf}
+      \end{figure}
+      \begin{flushright}
+        \vspace{-2ex}
+        \scalebox{.4}{
+          Image adapted from https://cds.cern.ch/record/2665537
+        }
+      \end{flushright}
+    \end{columns}
 % L'anello di accelerazione + grande del mondo, parliamo del CMS da cui arrivano i miei dati, in cui si producono particelle in abbondanza,
 % Del CMS mi interessa giusto introdurre il fatto che ci siano dei calorimetri perché alcuni loro parametri sono tra le features (differenze tra i calorimetri)
 %
@@ -62,7 +84,7 @@
 \end{frame}
 
 \subsection{Machine Learning}
-\begin{frame}{Riepilogo sul ML}
+\begin{frame}{ML: uno sguardo d'insieme}
   \vspace*{-3ex}
   \begin{figure}
     \centering
@@ -151,9 +173,14 @@
       \end{block}
       \begin{figure}
         \centering
-        \includegraphics[width=\textwidth]{./sm_overview.pdf}
+        \includepdf[width=\textwidth]{./sm_overview.pdf}
       \end{figure}
-
+      \begin{flushleft}
+        \vspace{-3ex}
+        \scalebox{.4}{
+          Adapted from: https://it.wikipedia.org/wiki/Modello\_standard
+        }
+      \end{flushleft}
     \column{.11\linewidth}
       {
         \setbeamercolor{block body}{bg=white, fg=black}
@@ -218,16 +245,19 @@
       \begin{figure}
         \centering
         \includegraphics[width=\textwidth]{./cms_event.png}
-% https://cds.cern.ch/record/2909335?ln=en
       \end{figure}
-%     \vspace*{6ex}
-%
   \begin{flushright}
+    \vspace{-3ex}
+    \scalebox{.4}{
+      Image from: https://cds.cern.ch/record/2909335?ln=en
+    }
+  \end{flushright}
+  \begin{center}
     \scriptsize
     Datasets derived from the Run2011A:\\
     https://opendata.cern.ch/record/545
-  \end{flushright}
-  \vspace*{1ex}
+  \end{center}
+  \vspace*{1.5ex}
   \end{columns}
 \end{frame}
 
@@ -304,9 +334,9 @@
     \column{.55\linewidth}
       Bisogna evitare di insegnare alla rete il rumore statistico dei dati
       \begin{itemize}
-        \item<2->Test per il genralisation check
-        \item<3->Validation per valutare l'allenamento della rete
-        \item<3->Train per allenare la rete
+        \item<2->Test: per verificare che la rete generalizzi
+        \item<3->Train: per allenare la rete
+        \item<3->Validation: per valutare l'allenamento della rete
       \end{itemize}
 
 
@@ -323,10 +353,16 @@
 \end{frame}
 
 \begin{frame}{L'architettura}
+  \vspace*{4.5ex}
   \begin{figure}
-    \includegraphics[width=\linewidth]{./fcn-architecture-simple.pdf}
+    \includepdf[width=\linewidth]{./fcn-architecture-simple.pdf}
   \end{figure}
-
+  \begin{flushright}
+    \vspace*{2.0ex}
+    \scalebox{.4}{
+      Adapted from: https://github.com/ejmastnak/fmf-seminar/blob/main/media/vector/fcn-architecture-simple.pdf
+    }
+  \end{flushright}
 % Qua bisogna introdurre i parametri su cui ho agito: numero di layer, nodi, attivazione, algoritmo di ottimizzazione (questo nella slide successiva)
 % ricordati di specificare quand'è che la rete prende il nome di 'deep'
 % E devo spiegare come funziona la questione dei parametri (pesi e bias) e dove si introduce la non linearità (attivazione)
@@ -377,17 +413,38 @@
 \end{frame}
 
 
-\subsection{Risultati dell'allenamento}
+\section{Risultati}
+\begin{frame}
+  \centering
+  \Huge\bfseries
+  Risultati
+\end{frame}
+
 \begin{frame}{Risultati}
   I modelli generalizzano sul test set
-  \begin{figure}
-    \only<1>{\includegraphics[width=\linewidth]{./Z28_28_adam_sigmoid.pdf}}
-    \only<2>{\includegraphics[width=\linewidth]{./W24_12_24_Adam_relu.pdf}}
-  \end{figure}
+  \parbox[c][5cm]{\textwidth}{
+      \centering
+      \only<1>{\includegraphics[width=\linewidth]{./Z28_28_adam_sigmoid.pdf}}
+      \only<2>{\includegraphics[width=\linewidth]{./W24_12_24_Adam_relu.pdf}}
+  }
+% \vspace{.6ex}
+  \begin{center}
+    $\color{unitocolor}\boldsymbol{\big[}$
+    {\scriptsize 
+      https://github.com/jlancione/thesis\_notebooks
+    }%
+    $\color{unitocolor}\bm{\big ]}$
+  \end{center}
 \end{frame}
 
 
 \section{Conclusioni}
+\begin{frame}
+  \centering
+  \Huge\bfseries
+  Conclusioni
+\end{frame}
+
 \begin{frame}{Conclusioni}
   \begin{itemize}
     \item Le reti neurali si prestano molto bene all'identificazione di particelle
@@ -398,8 +455,9 @@
 
   Ulteriori sviluppi: 
   \begin{itemize}
-    \item combinare i dataset rimuovendo le labels per allenare una rete a distinguere i bosoni tra loro
-    \item utilizzare una di queste reti come modello generativo per fare simulazioni 
+    \item Combinare i dataset rimuovendo le labels per allenare una rete a distinguere i bosoni tra loro
+    \item Utilizzare una di queste reti come modello generativo per simulare decadimenti
+    % anche con parametri #i! ie (ESTRAPOLARE! in tutte le sue accezioni e applicazioni) a energie maggiori/ al di fuori dl'accettanza dl rivelatore in vista di futuri rivelatori (ie può essere interessante andare a guardare lì?)
   \end{itemize}
 %
 %   \vspace*{2ex}
