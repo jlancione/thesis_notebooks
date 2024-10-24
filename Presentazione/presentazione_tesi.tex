@@ -528,10 +528,10 @@ separate-uncertainty-units = bracket}
   Risultati
 \end{frame}
 
-\begin{frame}{Risultati - Dataset \only<1>{$Z$}\only<2->{$W$}}
+\begin{frame}{Risultati - Dataset \only<1-2>{$Z$}\only<3->{$W$}}
   \vspace*{2.5ex}%
   \only<1-2>{architettura: \parbox{12ex}{(64,64)} algoritmo: Adam\qquad attivazione: sigmoide}%
-  \only<3>{architettura: \parbox{12ex}{(3,3)} algoritmo: Adam\qquad attivazione: relu}%
+  \only<3>{architettura: \parbox{12ex}{(6,6)} algoritmo: Adam\qquad attivazione: relu}%
   \only<4>{architettura: \parbox{12ex}{(24,12,24)} algoritmo: Adam\qquad attivazione: sigmoide}%
   \vspace*{2.0ex}
   \parbox[c][.4\textwidth]{\textwidth}{
@@ -539,12 +539,12 @@ separate-uncertainty-units = bracket}
       \column{.45\linewidth}
         \centering
         \only<1-2>{\includegraphics[width=\linewidth]{./Images/Z64_64_adam_sigmoid_acc.pdf}}
-        \only<3>{\includegraphics[width=\linewidth]{./Images/W3_3_Adam_relu_acc.pdf}}
+        \only<3>{\includegraphics[width=\linewidth]{./Images/W6_6_Adam_relu_acc.pdf}}
         \only<4>{\includegraphics[width=\linewidth]{./Images/W24_12_24_Adam_sigmoid_acc.pdf}}
       \column{.45\linewidth}
         \centering
         \only<1-2>{\includegraphics[width=\linewidth]{./Images/Z64_64_adam_sigmoid_rock.pdf}}
-        \only<3>{\includegraphics[width=\linewidth]{./Images/W3_3_Adam_relu_rock.pdf}}
+        \only<3>{\includegraphics[width=\linewidth]{./Images/W6_6_Adam_relu_rock.pdf}}
         \only<4>{\includegraphics[width=\linewidth]{./Images/W24_12_24_adam_sigmoid_rock.pdf}}
     \end{columns}%
   }%
