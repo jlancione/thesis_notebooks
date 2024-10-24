@@ -10,7 +10,10 @@
 \usepackage[T1]{fontenc}
 \usepackage{classico}
 \usepackage{siunitx}
-\usepackage{pdfpages}
+\sisetup{
+separate-uncertainty,
+separate-uncertainty-units = bracket}
+
 \usepackage{bm}
   \SetSymbolFont{largesymbols}{bold}{OMX}{txex}{b}{n} % for big bold parethesis
 
@@ -46,33 +49,34 @@
 %   \centering
 %   \begin{tikzpicture}
 %     \node [inner sep=0pt, minimum width=.5cm, minimum height=.5cm] (cern) at ($(-\the\paperwidth/2,-\the\paperheight/2) + (-3.2,-.3)$) {
-%       \includegraphics[width=.1\linewidth]{./cern_logo.pdf}
+%       \includegraphics[width=.1\linewidth]{./Images/cern_logo.pdf}
 %     };
 %     \node [inner sep=0pt, minimum width=.5cm, minimum height=.5cm] (cms_logo) at ($(cern) + (1.5,0)$){
-%       \includegraphics[width=.1\linewidth]{./cms_logo.pdf}
+%       \includegraphics[width=.1\linewidth]{./Images/cms_logo.pdf}
 %     };
 %     \node [draw, line width=.1cm, inner sep=0pt, text width=9cm, minimum height=6cm] (cms) at (-1.64,-2.5) {
-%       \includegraphics[width=\textwidth]{./cms_cutaway.pdf}
+%       \includegraphics[width=\textwidth]{./Images/cms_cutaway.pdf}
 %     };
 %     \node [draw, line width=.1cm, inner sep=0pt, text width=5cm] (text) at ($(cern) + (1.0,\the\paperheight/3)$) {
 %       Il più grande acceleratore di particelle del mondo di cui il Compact Muon Solenoid (CMS) è uno dei quattro rivelatori principali. 
 %     };
 %   \end{tikzpicture}
   \begin{columns}
-    \column{.25\linewidth}
+    \column{.20\linewidth}
       \begin{figure}
         \centering
-        \includegraphics[width=.4\textwidth]{./cern_logo.pdf}\\
+        \includegraphics[width=.5\textwidth]{./Images/cern_logo.pdf}\\
         \vspace{1ex}
-        \includegraphics[width=.4\textwidth]{./cms_logo.pdf}
+        \includegraphics[width=.5\textwidth]{./Images/cms_logo.pdf}
       \end{figure}
-    \column{.70\linewidth}
+    \column{.80\linewidth}
+      \vspace{-1ex}
       \begin{figure}
-        \includepdf[width=\textwidth]{./cms_cutaway.pdf}
+        \includegraphics[width=\textwidth]{./Images/cms_cutaway-flat.pdf}
       \end{figure}
       \begin{flushright}
-        \vspace{-2ex}
-        \scalebox{.4}{
+        \vspace{-3.3ex}
+        \scalebox{.4}{\color{unitograyA!65}
           Image adapted from https://cds.cern.ch/record/2665537
         }
       \end{flushright}
@@ -84,7 +88,7 @@
 \end{frame}
 
 \subsection{Machine Learning}
-\begin{frame}{ML: uno sguardo d'insieme}
+\begin{frame}{Machine Learning: uno sguardo d'insieme}
   \vspace*{-3ex}
   \begin{figure}
     \centering
@@ -136,7 +140,7 @@
 
         \node [inner sep=0pt, text width=6.5cm, minimum height=4.5cm] (nobel) at ($(ml) - (0,5.5)$) {
           \only<2->{
-            \includegraphics[width=\textwidth]{./nobel_prize.jpeg}
+            \includegraphics[width=\textwidth]{./Images/nobel_prize.jpeg}
           }
         };
       \end{tikzpicture}
@@ -173,11 +177,11 @@
       \end{block}
       \begin{figure}
         \centering
-        \includepdf[width=\textwidth]{./sm_overview.pdf}
+        \includegraphics[width=\textwidth]{./Images/sm_overview-flat.pdf}
       \end{figure}
       \begin{flushleft}
         \vspace{-3ex}
-        \scalebox{.4}{
+        \scalebox{.4}{\color{unitograyA!65}
           Adapted from: https://it.wikipedia.org/wiki/Modello\_standard
         }
       \end{flushleft}
@@ -197,7 +201,7 @@
       \parbox[t][][c]{\textwidth}{
         \vspace*{3ex}
         \centering
-        \includegraphics[width=.9\textwidth]{./nn_diagram.pdf}
+        \includegraphics[width=.9\textwidth]{./Images/nn_diagram.pdf}
       }
   \end{columns}
 \end{frame}
@@ -210,16 +214,81 @@
 \end{frame}
 
 \subsection{Produzione dei bosoni}
-\begin{frame}{$Z$ e $W$ all'LHC\\ Il processo Drell-Yan}
-  Riporto le masse
+\begin{frame}{$Z$ e $W$ all'LHC\\ Il processo Drell-Yan e il decadimento}
+  \begin{columns}[T]
+    \column{.43\linewidth}
+      \centering
+      \vspace*{1ex}
+      \scalebox{1.5}{
+        $p\,p \to Z \to \ell\,\overline{\ell}$%
+      }%
+      \vspace*{2ex}
+      \begin{block}{}
+        \centering
+        \SI{91.188(2)}{\giga\electronvolt\per c^2}
+        \vspace*{.3ex}
+      \end{block}
+      \vspace*{2ex}
+      \begin{tikzpicture}
+%         \draw [help lines] (-2,-2) grid (2,2);
+        \node [line width=.1cm, text width=3.5cm] (feyn) at (0,0) {
+          \includegraphics[width=\textwidth]{./Images/feynman_canva-flat.pdf}
+        };
+        \node [line width=.1cm, text width=.2cm] (Z) at (-.5,.5) {
+          \centering%
+          $Z$
+        };
+        \node [anchor=west, line width=.1cm, text width=1.5cm] (e) at (1.3,1) {
+          \centering%
+          $e^{-}$, $\mu^{-}$
+        };
+        \node [anchor=west, line width=.1cm, text width=1.5cm] (nu) at (1.3,-1) {
+          \centering%
+          $e^{+}$, $\mu^{+}$
+        };
+      \end{tikzpicture}
+    \column{.003ex}
+    \column{.43\linewidth}
+      \centering
+      \vspace*{1ex}
+      \scalebox{1.5}{
+        $p\,p \to W \to \ell\,\overline{\nu}$, $\nu\, \overline{\ell}$%
+      }%
+      \vspace*{2ex}
+      \begin{block}{}
+        \centering
+        \SI{80.369(13)}{\giga\electronvolt\per c^2}
+        \vspace*{.3ex}
+      \end{block}
+      \vspace*{2ex}
+      \begin{tikzpicture}
+%         \draw [help lines] (-2,-2) grid (2,2);
+        \node [line width=.1cm, text width=3.5cm] (feyn) at (0,0) {
+          \includegraphics[width=\textwidth]{./Images/feynman_canva-flat.pdf}
+        };
+        \node [line width=.1cm, text width=.2cm] (W) at (-.5,.5) {
+          \centering%
+          $W^{-}$
+        };
+        \node [anchor=west, line width=.1cm, text width=1.5cm] (e) at (1.3,1) {
+          \centering%
+          $e^{-}$, $\mu^{-}$
+        };
+        \node [anchor=west, line width=.1cm, text width=1.5cm] (nu) at (1.3,-1) {
+          \centering%
+          $\overline{\nu}_e$, $\overline{\nu}_{\mu}$
+        };
+      \end{tikzpicture}
+  \end{columns}
 
-  Diagrammi di Feynman dei decadimenti, anche uno con la produzione? ie drell yan
+% Diagrammi di Feynman dei decadimenti, anche uno con la produzione? ie drell yan
 \end{frame}
 
 \begin{frame}{La struttura del dataset}
 %  Diamo subito qlche dettaglio in $+$ sul dataset
-  \begin{columns}
+  \begin{columns}[T]
     \column{.40\linewidth}
+      \vspace*{4ex}
  %    Eventi dalla Run 1 dell'LHC
       \begin{block}{}
         \centering
@@ -227,31 +296,29 @@
         \SI{7}{\tera\electronvolt}
         \vspace*{.3ex}
       \end{block}
+      \vspace*{1ex}
     % pké risale a prima dl'upgrade che lo ha portato agli odierni 13Tev nel cm
       \begin{itemize}
         \item Run 
         \item Event
-        \item Variabili cinematiche dei leptoni
-        \begin{itemize}
-          \item momento $p_t$
-          \item rapidità $\eta$
-          \item angolo $\phi$
-        \end{itemize}
+        \item Parametri dei leptoni ($Q$, $p_t$, $\eta$, $\phi$)
         \item Parametri del detector
+        % gli iso, dove è stato trovato il leptone (barrel o endcap), ma cmq NN sono uniformi tra i dataset qndi ciccia :)
       \end{itemize}
 
     \column{.52\linewidth}
-      \vspace*{6ex}
+      \vspace*{4ex}
       \begin{figure}
         \centering
-        \includegraphics[width=\textwidth]{./cms_event.png}
+        \includegraphics[width=\textwidth]{./Images/cms_event.png}
       \end{figure}
   \begin{flushright}
     \vspace{-3ex}
-    \scalebox{.4}{
+    \scalebox{.4}{\color{unitograyA!65}
       Image from: https://cds.cern.ch/record/2909335?ln=en
     }
   \end{flushright}
+  \vspace*{.7ex}
   \begin{center}
     \scriptsize
     Datasets derived from the Run2011A:\\
@@ -263,16 +330,18 @@
 
 \subsection{Preprocessing}
 \begin{frame}{Preprocessing}
-  Qua scriviamo la ricetta finale dl preprocessing
-
+  \centering
+  \vspace*{1.2ex}
+  Trattamento degli outliers \,\,$\color{unitocolor}\to$\,\, Correlazioni \,\,$\color{unitocolor}\to$\,\, Normalizzazione
+  \vspace*{1.5ex}
   \begin{figure}
     \parbox{.47\linewidth}{
       \centering
-      \includegraphics[width=\linewidth]{./Zpairplot.png}
+      \includegraphics[width=\linewidth]{./Images/Zpairplot_scaled.pdf}
     }\,
     \parbox{.47\linewidth}{
       \centering
-      \includegraphics[width=\linewidth]{./pairplot_merged.png}
+      \includegraphics[width=\linewidth]{./Images/pairplot_merged.png}
     }
   \end{figure}
 
@@ -305,26 +374,26 @@
             \useasboundingbox (A) rectangle (C);
 
             \only<1>{
-              \draw [fill=unitocolor!70] (A) -- (B) -- (C) -- (D) -- (A);
-              \path (4,5) node (dataset)[line width=.1cm, text width=5cm] {\begin{center}\huge\bfseries\color{white}Dataset\end{center}};
+              \draw [unitocolor, fill=unitocolor!70] (A) -- (B) -- (C) -- (D) -- (A);
+              \path (4,5.5) node (dataset)[line width=.1cm, text width=5cm] {\begin{center}\huge\bfseries\color{white}Dataset\end{center}};
             }
             \only<2>{
-              \draw [fill=unitocolor!70] (A) -- ($(AB) - (1pt,0)$) --++ (D) -- (D) -- (A);
+              \draw [unitocolor, fill=unitocolor!70] (A) -- ($(AB) - (1pt,0)$) --++ (D) -- (D) -- (A);
             }
             \only<2->{
-              \draw [unitograyA, fill=unitograyA] ($(AB) + (1pt,0)$) -- (B) -- (C) -- ($(AB) + (1pt,0) + (D)$);
+              \draw [faircolor, fill=faircolor!80] ($(AB) + (1pt,0)$) -- (B) -- (C) -- ($(AB) + (1pt,0) + (D)$);
             }
             \only<3->{
               \draw [unitocolor, fill=unitocolor!80] ($(AD) + (0,1pt)$) -- ($(AB) + (AD) + (-1pt,1pt)$) --++ ($(D) - (AD) - (0,1pt)$) -- (D) -- ($(AD) + (0,1pt)$);
-              \draw [faircolor, fill=faircolor!80] (A) -- ($(AB) - (1pt,0)$) --++ ($(AD) - (0,1pt)$) -- ($(AD) - (0,1pt)$) -- (A);
+              \draw [unitograyA, fill=unitograyA!80] (A) -- ($(AB) - (1pt,0)$) --++ ($(AD) - (0,1pt)$) -- ($(AD) - (0,1pt)$) -- (A);
             }
             % sadly the coordinates for text are hard coded :(
             \only<2->{
-              \path (7.2,5.4) node (test)[line width=.1cm, text width=.4cm, minimum height=5cm] {\begin{center}\huge\bfseries\color{white}T\linebreak e\linebreak s\linebreak t\end{center}};
+              \path (7.2,5.9) node (test)[line width=.1cm, text width=.4cm, minimum height=5cm] {\begin{center}\huge\bfseries\color{black}T\linebreak e\linebreak s\linebreak t\end{center}};
             }
             \only<3->{
-              \path (3.2,1.4) node (val)[line width=.1cm, text width=4cm] {\begin{center}\huge\bfseries\color{black}Validation\end{center}};
-              \path (3.2,5.9) node (train)[line width=.1cm, text width=3cm] {\begin{center}\huge\bfseries\color{white}Train\end{center}};
+              \path (3.2,1.4) node (val)[line width=.1cm, text width=4cm] {\begin{center}\huge\bfseries\color{white}Validation\end{center}};
+              \path (3.2,6.2) node (train)[line width=.1cm, text width=3cm] {\begin{center}\huge\bfseries\color{white}Train\end{center}};
             }
           \end{tikzpicture}
         }
@@ -355,7 +424,7 @@
 \begin{frame}{L'architettura}
   \vspace*{4.5ex}
   \begin{figure}
-    \includepdf[width=\linewidth]{./fcn-architecture-simple.pdf}
+    \includegraphics[width=\linewidth]{./Images/fcn-architecture-simple-flat.pdf}
   \end{figure}
   \begin{flushright}
     \vspace*{2.0ex}
@@ -369,20 +438,24 @@
 \end{frame}
 
 \begin{frame}{Loss function \\Algoritmi di ottimizzazione}
+  \begin{equation*}
+    H(p,q) = - \sum p(x) \log q(x)
+  \end{equation*}
   \begin{columns}
     \column{.6\linewidth}
       \begin{figure}
         \centering
-        \begin{tikzpicture}
-          \node [line width=.04cm, inner sep=0pt, text width=\linewidth, minimum height=5cm] (landscape) at (0,0) {
-            \includegraphics[width=\textwidth]{./loss_landscape.pdf}
-          };
-          \node [line width=.04cm, anchor=west, inner sep=0pt, text width=5cm] (loss) at ($(landscape) + (-3,3.3)$) {
-            \begin{equation*}
-              H(p,q) = - \sum p(x) \log q(x)
-            \end{equation*}
-          };
-        \end{tikzpicture}
+%       \begin{tikzpicture}
+%         \node [draw, line width=.04cm, inner sep=0pt, text width=\linewidth, minimum height=5cm] (landscape) at (0,0) {
+%           \includegraphics[width=\textwidth]{./Images/loss_landscape.pdf}
+%         };
+%         \node [draw, line width=.04cm, anchor=west, inner sep=0pt, text width=5cm] (loss) at ($(landscape) + (-3,3.3)$) {
+%           \begin{equation*}
+%             H(p,q) = - \sum p(x) \log q(x)
+%           \end{equation*}
+%         };
+%       \end{tikzpicture}
+        \includegraphics[width=\textwidth]{./Images/loss_landscape.pdf}
       \end{figure}
     \column{.35\linewidth}
     % \begin{equation*}
@@ -407,9 +480,15 @@
 \end{frame}
 
 \begin{frame}{Overfitting}
-  \begin{figure}
-    \includegraphics[width=\linewidth]{./Z64_64_Adam_relu.pdf}
-  \end{figure}
+  \vspace*{3.5ex}
+  \begin{columns}
+    \column{.48\linewidth}
+      \centering
+      \includegraphics[width=\linewidth]{./Images/Z64_64_adam_relu_acc.pdf}
+    \column{.48\linewidth}
+      \centering
+      \includegraphics[width=\linewidth]{./Images/Z64_64_adam_relu_rock.pdf}
+  \end{columns}
 \end{frame}
 
 
@@ -421,19 +500,32 @@
 \end{frame}
 
 \begin{frame}{Risultati}
+  \vspace*{2.5ex}
   I modelli generalizzano sul test set
-  \parbox[c][5cm]{\textwidth}{
+  \vspace*{3.5ex}
+  \begin{columns}
+    \column{.45\linewidth}
       \centering
-      \only<1>{\includegraphics[width=\linewidth]{./Z28_28_adam_sigmoid.pdf}}
-      \only<2>{\includegraphics[width=\linewidth]{./W24_12_24_Adam_relu.pdf}}
-  }
-% \vspace{.6ex}
+      \only<1>{\includegraphics[width=\linewidth]{./Images/Z64_64_adam_sigmoid_acc.pdf}}
+%     \only<2>{\includegraphics[width=\linewidth]{./Images/W24_12_24_Adam_relu_acc.pdf}}
+      
+    \column{.45\linewidth}
+      \centering
+      \only<1>{\includegraphics[width=\linewidth]{./Images/Z64_64_adam_sigmoid_rock.pdf}}
+%     \only<2>{\includegraphics[width=\linewidth]{./Images/W24_12_24_Adam_relu_rock.pdf}}
+  \end{columns}
+% \parbox[c][5cm]{\textwidth}{
+%     \centering
+%     \only<1>{\includegraphics[width=\linewidth]{./Images/Z64_64_adam_sigmoid.pdf}}
+%     \only<2>{\includegraphics[width=\linewidth]{./Images/W24_12_24_Adam_relu.pdf}}
+% }
+  \vspace{2ex}
   \begin{center}
-    $\color{unitocolor}\boldsymbol{\big[}$
-    {\scriptsize 
+    $\color{unitocolor!60}\boldsymbol{\big[}$
+    {\scriptsize\color{unitograyA!65}
       https://github.com/jlancione/thesis\_notebooks
     }%
-    $\color{unitocolor}\bm{\big ]}$
+    $\color{unitocolor!60}\bm{\big ]}$
   \end{center}
 \end{frame}
 
@@ -461,22 +553,20 @@
   \end{itemize}
 %
 %   \vspace*{2ex}
-    \begin{columns}
-      \column{.25\linewidth}
-      {
-        \only<1>{\setbeamercolor{block body}{bg=white, fg=white}}
-        \begin{block}{}
-          \centering\vspace*{.5ex}
-          \only<1>{}
-          \only<2>{
-            \Large\bfseries
-            \color{white}
-            Grazie%
-          }%
+  \begin{columns}
+    \column{.25\linewidth}
+    {
+      \only<1>{\setbeamercolor{block body}{bg=white, fg=white}}
+      \only<2>{}
+      \begin{block}{}
+        \centering\vspace*{.5ex}
+        \Large\bfseries
+        \color{white}
+        Grazie%
         \vspace*{.5ex}
       \end{block}
-      }
-    \end{columns}
+    }
+  \end{columns}
 \end{frame}
 
 \end{document}
