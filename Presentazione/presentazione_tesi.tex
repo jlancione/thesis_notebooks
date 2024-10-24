@@ -14,6 +14,7 @@
 separate-uncertainty,
 separate-uncertainty-units = bracket}
 
+\usepackage{physics}
 \usepackage{bm}
   \SetSymbolFont{largesymbols}{bold}{OMX}{txex}{b}{n} % for big bold parethesis
 
@@ -337,11 +338,11 @@ separate-uncertainty-units = bracket}
   \begin{figure}
     \parbox{.47\linewidth}{
       \centering
-      \includegraphics[width=\linewidth]{./Images/Zpairplot_scaled.pdf}
+      \includegraphics[width=\linewidth]{./Images/Zpairplot_scaled.png}
     }\,
     \parbox{.47\linewidth}{
       \centering
-      \includegraphics[width=\linewidth]{./Images/pairplot_merged.png}
+      \includegraphics[width=\linewidth]{./Images/Wpairplot_scaled.png}
     }
   \end{figure}
 
@@ -438,11 +439,14 @@ separate-uncertainty-units = bracket}
 \end{frame}
 
 \begin{frame}{Loss function \\Algoritmi di ottimizzazione}
-  \begin{equation*}
-    H(p,q) = - \sum p(x) \log q(x)
-  \end{equation*}
-  \begin{columns}
+  \vspace*{-4ex}
+  \begin{multline*}
+    P(\mathcal{D}|\bm{w}) = \prod_{i=1}^{n} q(x_i|\bm{w})^{p(x_i)}\, \qty(1-q(x_i|\bm{w}))^{1-p(x_i)}\\[-2ex] {\color{unitocolor}\leadsto}\quad H(p,q) = - \sum_{i=1}^{n} p(x) \log q(x)
+  \end{multline*}
+% che è la massima verosimiglianza del dataset osservato (di cui si studia e minimizza la - log likelyhood)
+  \begin{columns}[T]
     \column{.6\linewidth}
+      \vspace*{-6ex}
       \begin{figure}
         \centering
 %       \begin{tikzpicture}
@@ -458,6 +462,7 @@ separate-uncertainty-units = bracket}
         \includegraphics[width=\textwidth]{./Images/loss_landscape.pdf}
       \end{figure}
     \column{.35\linewidth}
+      \vspace*{.5ex}
     % \begin{equation*}
     %   H(p,q) = - \sum p(x) \log q(x)
     % \end{equation*}
@@ -500,26 +505,25 @@ separate-uncertainty-units = bracket}
 \end{frame}
 
 \begin{frame}{Risultati}
-  \vspace*{2.5ex}
-  I modelli generalizzano sul test set
+  \vspace*{2.5ex}%
+  \only<1>{Z: (64,64), algoritmo: Adam, attivazione: sigmoide}%
+  \only<2>{W: (3,3), algoritmo: Adam, attivazione: relu}%
+  \only<3>{W: (24,12,24), algoritmo: Adam, attivazione: sigmoide}%
   \vspace*{3.5ex}
-  \begin{columns}
-    \column{.45\linewidth}
-      \centering
-      \only<1>{\includegraphics[width=\linewidth]{./Images/Z64_64_adam_sigmoid_acc.pdf}}
-%     \only<2>{\includegraphics[width=\linewidth]{./Images/W24_12_24_Adam_relu_acc.pdf}}
-      
-    \column{.45\linewidth}
-      \centering
-      \only<1>{\includegraphics[width=\linewidth]{./Images/Z64_64_adam_sigmoid_rock.pdf}}
-%     \only<2>{\includegraphics[width=\linewidth]{./Images/W24_12_24_Adam_relu_rock.pdf}}
-  \end{columns}
-% \parbox[c][5cm]{\textwidth}{
-%     \centering
-%     \only<1>{\includegraphics[width=\linewidth]{./Images/Z64_64_adam_sigmoid.pdf}}
-%     \only<2>{\includegraphics[width=\linewidth]{./Images/W24_12_24_Adam_relu.pdf}}
-% }
-  \vspace{2ex}
+  \parbox[c][.4\textwidth]{\textwidth}{
+    \begin{columns}
+      \column{.45\linewidth}
+        \centering
+        \only<1>{\includegraphics[width=\linewidth]{./Images/Z64_64_adam_sigmoid_acc.pdf}}
+        \only<2>{\includegraphics[width=\linewidth]{./Images/W3_3_Adam_relu_acc.pdf}}
+        \only<3>{\includegraphics[width=\linewidth]{./Images/W24_12_24_Adam_sigmoid_acc.pdf}}
+      \column{.45\linewidth}
+        \centering
+        \only<1>{\includegraphics[width=\linewidth]{./Images/Z64_64_adam_sigmoid_rock.pdf}}
+        \only<2>{\includegraphics[width=\linewidth]{./Images/W3_3_Adam_relu_rock.pdf}}
+        \only<3>{\includegraphics[width=\linewidth]{./Images/W24_12_24_adam_sigmoid_rock.pdf}}
+    \end{columns}%
+  }
   \begin{center}
     $\color{unitocolor!60}\boldsymbol{\big[}$
     {\scriptsize\color{unitograyA!65}
