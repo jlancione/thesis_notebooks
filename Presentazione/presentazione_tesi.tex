@@ -25,7 +25,7 @@ separate-uncertainty-units = bracket}
 
 \usetheme{UNITO}
     %\setbeamercovered{invisible} %default
-    \setbeamercovered{transparent} % Items to be uncovered already visible, but almost transparent
+  \setbeamercovered{transparent} % Items to be uncovered already visible, but almost transparent
     
 \begin{document}
 \begin{frame}
@@ -334,18 +334,42 @@ separate-uncertainty-units = bracket}
   \centering
   \vspace*{1.2ex}
   Trattamento degli outliers \,\,$\color{unitocolor}\to$\,\, Correlazioni \,\,$\color{unitocolor}\to$\,\, Normalizzazione
-  \vspace*{1.5ex}
-  \begin{figure}
-    \parbox{.47\linewidth}{
+% \vspace*{.7ex}
+  \begin{columns}[T]
+    \column{.50\linewidth}
       \centering
+      \begin{pgfpicture}{-1ex}{0ex}{1ex}{2ex}
+        \color{unitocolor}
+        \pgfpathcircle{\pgfpoint{0pt}{.5ex}}{0.4ex}
+        \pgfusepath{fill}
+      \end{pgfpicture} {\footnotesize $Z\to \mu^{+}\,\mu^{-}$}
+      \quad
+      \begin{pgfpicture}{-1ex}{0ex}{1ex}{2ex}
+        \color{unitograyA}
+        \pgfpathcircle{\pgfpoint{0pt}{.5ex}}{0.4ex}
+        \pgfusepath{fill}
+      \end{pgfpicture} {\footnotesize $Z\to e^{+}\, e^{-}$}
+    \column{.50\linewidth}
+      \centering
+      \begin{pgfpicture}{-1ex}{0ex}{1ex}{2ex}
+        \color{unitocolor}
+        \pgfpathcircle{\pgfpoint{0pt}{.5ex}}{0.4ex}
+        \pgfusepath{fill}
+      \end{pgfpicture} {\footnotesize $W\to e\, \nu_e$}
+      \quad
+      \begin{pgfpicture}{-1ex}{0ex}{1ex}{2ex}
+        \color{unitograyA}
+        \pgfpathcircle{\pgfpoint{0pt}{.5ex}}{0.4ex}
+        \pgfusepath{fill}
+      \end{pgfpicture} {\footnotesize $W\to \mu\, \nu_{\mu}$}
+  \end{columns}
+  \begin{columns}[b]
+    \column{.50\linewidth}
       \includegraphics[width=\linewidth]{./Images/Zpairplot_scaled.png}
-    }\,
-    \parbox{.47\linewidth}{
-      \centering
+    \column{.50\linewidth}
       \includegraphics[width=\linewidth]{./Images/Wpairplot_scaled.png}
-    }
-  \end{figure}
-
+%   }
+    \end{columns}%
   % {\scriptsize
   % Qua voglio dire che ho guardato in faccia i dati (a che scopo? cercare correlazioni evidenti e sbarazzarmi di dati che potrebbero inquinare l'allenamento dla rete), ho rimosso gli outliers e poi li ho riscalati (e dicendo qsto mi collego alla slide successiva pké la ragione dl riscalamento è strettamente legata agli algoritmi)
 
@@ -504,30 +528,35 @@ separate-uncertainty-units = bracket}
   Risultati
 \end{frame}
 
-\begin{frame}{Risultati}
+\begin{frame}{Risultati - Dataset \only<1>{$Z$}\only<2->{$W$}}
   \vspace*{2.5ex}%
-  \only<1>{Z: (64,64), algoritmo: Adam, attivazione: sigmoide}%
-  \only<2>{W: (3,3), algoritmo: Adam, attivazione: relu}%
-  \only<3>{W: (24,12,24), algoritmo: Adam, attivazione: sigmoide}%
-  \vspace*{3.5ex}
+  \only<1-2>{architettura: \parbox{12ex}{(64,64)} algoritmo: Adam\qquad attivazione: sigmoide}%
+  \only<3>{architettura: \parbox{12ex}{(3,3)} algoritmo: Adam\qquad attivazione: relu}%
+  \only<4>{architettura: \parbox{12ex}{(24,12,24)} algoritmo: Adam\qquad attivazione: sigmoide}%
+  \vspace*{2.0ex}
   \parbox[c][.4\textwidth]{\textwidth}{
     \begin{columns}
       \column{.45\linewidth}
         \centering
-        \only<1>{\includegraphics[width=\linewidth]{./Images/Z64_64_adam_sigmoid_acc.pdf}}
-        \only<2>{\includegraphics[width=\linewidth]{./Images/W3_3_Adam_relu_acc.pdf}}
-        \only<3>{\includegraphics[width=\linewidth]{./Images/W24_12_24_Adam_sigmoid_acc.pdf}}
+        \only<1-2>{\includegraphics[width=\linewidth]{./Images/Z64_64_adam_sigmoid_acc.pdf}}
+        \only<3>{\includegraphics[width=\linewidth]{./Images/W3_3_Adam_relu_acc.pdf}}
+        \only<4>{\includegraphics[width=\linewidth]{./Images/W24_12_24_Adam_sigmoid_acc.pdf}}
       \column{.45\linewidth}
         \centering
-        \only<1>{\includegraphics[width=\linewidth]{./Images/Z64_64_adam_sigmoid_rock.pdf}}
-        \only<2>{\includegraphics[width=\linewidth]{./Images/W3_3_Adam_relu_rock.pdf}}
-        \only<3>{\includegraphics[width=\linewidth]{./Images/W24_12_24_adam_sigmoid_rock.pdf}}
+        \only<1-2>{\includegraphics[width=\linewidth]{./Images/Z64_64_adam_sigmoid_rock.pdf}}
+        \only<3>{\includegraphics[width=\linewidth]{./Images/W3_3_Adam_relu_rock.pdf}}
+        \only<4>{\includegraphics[width=\linewidth]{./Images/W24_12_24_adam_sigmoid_rock.pdf}}
     \end{columns}%
-  }
+  }%
+  \vspace*{-.5ex}
+  \only<1>{\color{white}}Il modello generalizza al test set
+  \vspace*{.2ex}
   \begin{center}
-    $\color{unitocolor!60}\boldsymbol{\big[}$
-    {\scriptsize\color{unitograyA!65}
-      https://github.com/jlancione/thesis\_notebooks
+    \scalebox{.8}{
+      $\color{unitocolor!60}\boldsymbol{\big[}$
+      {\scriptsize\color{unitograyA!65}
+        https://github.com/jlancione/thesis\_notebooks
+      }%
     }%
     $\color{unitocolor!60}\bm{\big ]}$
   \end{center}
