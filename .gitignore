@@ -12,3 +12,26 @@
 *.fls
 *.nav
 *.snm
+
+# ignore images
+*.png
+*.pdf
+
+# ignore reference and notes notebooks
+identifying-two-modes-of-z-boson-acc-90.ipynb
+appunti_tf.ipynb
+
+# ignore auxiliary images directories
+Wmodels/
+Zmodels/
+Training_significativi/
+
+# ignore auxiliary tex directories
+Presentazione/Feynman/
+Presentazione/Cern_logo/
+Presentazione/Ml_schematic/
+Presentazione/TrainTest/
+
+# reincluding images and slides from the presentation
+!./Presentazione/Images/
+!./Presentazione/presentazione_tesi.pdf
