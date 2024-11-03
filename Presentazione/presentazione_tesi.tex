@@ -148,19 +148,18 @@ separate-uncertainty-units = bracket}
     }
   \end{figure}
 %
-% {\scriptsize
-%   In questa slide devo far passare il concetto di labeled e unlabeled data (posso anche metterle come item)
-%   Supervised eccelle nla pattern recognition, che si tratti di immagini testi o (+ vicino alla fisica) trovare mapping che siano continui o meno (nel mio caso nn lo è)
-%   Qua dicendo che il mio progetto ruota attorno ad un problema di classificazione passo alla prox slide
-% }
+  %   Apprendimento automatico, 1 certa macchina impara nel senso che migliora nello svolgimento di 1 compito, rispetto a qlche metro di valutazione -> performance da massimizzare = energia da minimizzare!
+%   qsti 3 attori sono qli che se la giocano: il task, il training/esperienza e qsta metrica/misura dla performance
+%   l'allenamento dla macchina sarà funzionale al compito che si prefigge di svolgere
+%   se si tratta di IMPARARE UN MAPPING (continuo o meno, o pattern recognition -> immagini/testi) allora Supervised, altrimenti se deve imparare 1 distribuzione di probabilità è Unsupervised
+%
+% Qua dicendo che il mio progetto ruota attorno ad un problema di classificazione passo alla prox slide
+
 \end{frame}
 
 \begin{frame}{Il Progetto di tesi}
-% {\scriptsize
 %   Che sia chiaro dove si colloca il mio progetto:
 %   affrontare un problema di classificazione binaria (logistic regression), nell'ambito della Fisica delle alte energie
-%
-%   Immagine classica del modello std e 1 di 1 rete neurale giusto per dire rapidamente il Cosa e il Come
 %
 %   il mio obiettivo: allenare 1 rete che distingua al meglio tra i 2 canali di decadimento
 % }
@@ -281,8 +280,6 @@ separate-uncertainty-units = bracket}
         };
       \end{tikzpicture}
   \end{columns}
-
-% Diagrammi di Feynman dei decadimenti, anche uno con la produzione? ie drell yan
 \end{frame}
 
 \begin{frame}{La struttura del dataset}
@@ -342,13 +339,13 @@ separate-uncertainty-units = bracket}
         \color{unitocolor}
         \pgfpathcircle{\pgfpoint{0pt}{.5ex}}{0.4ex}
         \pgfusepath{fill}
-      \end{pgfpicture} {\footnotesize $Z\to \mu^{+}\,\mu^{-}$}
+      \end{pgfpicture} {\footnotesize $Z\to e^{+}\, e^{-}$}
       \quad
       \begin{pgfpicture}{-1ex}{0ex}{1ex}{2ex}
         \color{unitograyA}
         \pgfpathcircle{\pgfpoint{0pt}{.5ex}}{0.4ex}
         \pgfusepath{fill}
-      \end{pgfpicture} {\footnotesize $Z\to e^{+}\, e^{-}$}
+      \end{pgfpicture} {\footnotesize $Z\to \mu^{+}\,\mu^{-}$}
     \column{.50\linewidth}
       \centering
       \begin{pgfpicture}{-1ex}{0ex}{1ex}{2ex}
@@ -373,11 +370,7 @@ separate-uncertainty-units = bracket}
   % {\scriptsize
   % Qua voglio dire che ho guardato in faccia i dati (a che scopo? cercare correlazioni evidenti e sbarazzarmi di dati che potrebbero inquinare l'allenamento dla rete), ho rimosso gli outliers e poi li ho riscalati (e dicendo qsto mi collego alla slide successiva pké la ragione dl riscalamento è strettamente legata agli algoritmi)
 
-  % Qua mostriamo sicuramente i pairplot (mi raccomando allora a inserirli riscalati!) che sono la cosa più indicativa   
-  % Raccontiamo la storia di correlazioni evidenti che permetterebbero una facile classificazione, nel caso $+$ semplice attraverso 1 appl lineare
-
-  % I concetti da far passare sono 2: è meglio avere 1 dataset uniforme, quindi scaliamo tutto e ci sbarazziamo degli outlier, evitare di introdurre ridondanze (ie guardare in faccia i dati con pairplot)
-  % }
+  % I concetti da far passare sono 2: è meglio avere 1 dataset uniforme, quindi scaliamo tutto e ci sbarazziamo degli outlier, evitare di introdurre ridondanze (ie guardare in faccia i dati con pairplot per eventuale facile classificazione)
 
   % {\scriptsize
   % la qstione dgli outlier dettagliata in slide di backup con i boxplot -> in questa maniera escono $+$ slides (e qua posso sprecarmi con il logaritmo e lo questione del'approccio scartato con le sigma)
@@ -498,14 +491,6 @@ separate-uncertainty-units = bracket}
         \item \dots
       \end{itemize}
   \end{columns}
-
-  % Qsto per spiegare come funzioni la rete, nn per mostrare risultati ancora
-% L'idea di 1 loss function da minimizzare (come se fosse un'energia), qsta nn è semplice da spiegare visivamente, di questa metterei proprio la formula così la commento un attimo
-%
-% Algoritmo (sarebbe carino accennare al learning rate e al momento e all'adattività degli algoritmi)
-%
-%
-% Immagini di allenamenti significativi, magari anche in cui si veda l'overfitting
 \end{frame}
 
 \begin{frame}{Overfitting}
